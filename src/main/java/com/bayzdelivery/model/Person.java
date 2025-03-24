@@ -30,7 +30,9 @@ public class Person implements Serializable{
   @Column(name = "email")
   String email;
 
-  @Column(name = "registration_number")
+  // I don't believe this column is needed , but I  will leave it because the task doesn't explain it is full use
+  // if we need a unique number the id should be enough, but since it is here I will make a function that generates a registeration number
+  @Column(name = "registration_number",unique = true)
   String registrationNumber;
 
   public Long getId() {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.bayzdelivery.dto.PersonDto;
+import com.bayzdelivery.mapper.PersonMapper;
 import com.bayzdelivery.repositories.PersonRepository;
 import com.bayzdelivery.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,9 @@ public class PersonServiceImpl implements PersonService {
         return personList;
     }
 
-    public Person save(Person p) {
-        return personRepository.save(p);
+    public Person save(PersonDto personDto) {
+
+        return personRepository.save(PersonMapper.mapPersonDtoToPerson(personDto));
     }
 
     @Override

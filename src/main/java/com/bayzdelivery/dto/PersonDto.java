@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 public class PersonDto {
     String name;
     String email;
-    String registrationNumber;
 
     public String getName() {
         return name;
@@ -25,11 +24,4 @@ public class PersonDto {
         this.email = email;
     }
 
-    public String getRegistrationNumber() {
-        return registrationNumber;
-    }
-
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
-    }
 }

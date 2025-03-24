@@ -10,11 +10,22 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-db_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123qwe}
-      POSTGRES_DB: ${POSTGRES_DB:-bayzdelivery}
+      POSTGRES_USER: db_user
+      POSTGRES_PASSWORD: 123qwe
+      POSTGRES_DB: bayzdelivery
       PGDATA: /data/postgres/bayztracker
     networks:
+      - postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: oghazala@bayzat.com
+      PGADMIN_DEFAULT_PASSWORD: toolS585
+    ports:
+      - "8080:80"
+    depends_on:
       - postgres
 
 networks:

@@ -27,7 +27,7 @@ public class Person implements Serializable{
 
   @NotNull
   @Email
-  @Column(name = "email",nullable = false)
+  @Column(name = "email",unique = true,nullable = false)
   String email;
 
   // I don't believe this column is needed , but I  will leave it because the task doesn't explain it is full use

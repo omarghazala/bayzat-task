@@ -22,17 +22,17 @@ public class Person implements Serializable{
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;
 
-  @Column(name = "name")
+  @Column(name = "name",nullable = false)
   String name;
 
   @NotNull
   @Email
-  @Column(name = "email")
+  @Column(name = "email",nullable = false)
   String email;
 
   // I don't believe this column is needed , but I  will leave it because the task doesn't explain it is full use
   // if we need a unique number the id should be enough, but since it is here I will make a function that generates a registeration number
-  @Column(name = "registration_number",unique = true)
+  @Column(name = "registration_number",unique = true,nullable = false)
   String registrationNumber;
 
   public Long getId() {

@@ -7,5 +7,7 @@ import com.bayzdelivery.model.Person;
 
 @RestResource(exported=false)
 public interface PersonRepository extends CrudRepository<Person, Long>, PagingAndSortingRepository<Person, Long> {
+    boolean existsByEmail(String email);
 
+    boolean existsByRegistrationNumber(String newRegistrationNumber);
 }

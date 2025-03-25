@@ -26,7 +26,7 @@ public class PersonServiceImpl implements PersonService {
 
     public Person save(PersonDto personDto) {
 
-        return personRepository.save(PersonMapper.mapPersonDtoToPerson(personDto));
+        return personRepository.save(PersonMapper.mapPersonDtoToPerson(personDto,personRepository));
     }
 
     @Override

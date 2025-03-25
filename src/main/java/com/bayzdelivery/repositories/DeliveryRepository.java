@@ -36,4 +36,7 @@ public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
             @Param("startTime") Instant startTime,
             @Param("endTime") Instant endTime
     );
+
+    @Query("SELECT d FROM Delivery d WHERE d.startTime < :thresholdTime AND d.endTime IS NULL")
+    List<Delivery> findDelayedDeliveries(@Param("thresholdTime") Instant thresholdTime);
 }

@@ -51,10 +51,6 @@ public class Delivery implements Serializable{
     return id;
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
-
   public Instant getStartTime() {
     return startTime;
   }

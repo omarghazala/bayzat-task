@@ -3,13 +3,15 @@ package com.bayzdelivery.mapper;
 import com.bayzdelivery.dto.DeliveryDto;
 import com.bayzdelivery.model.Delivery;
 import com.bayzdelivery.model.Person;
+import com.bayzdelivery.repositories.DeliveryRepository;
 import com.bayzdelivery.repositories.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DeliveryMapper {
-    public static Delivery mapDeliveryDtoToDelivery(DeliveryDto deliveryDto, PersonRepository personRepository) {
+    public static Delivery mapDeliveryDtoToDelivery(DeliveryDto deliveryDto, DeliveryRepository deliveryRepository, PersonRepository personRepository) {
 
         if (deliveryDto == null) {
             throw new IllegalArgumentException("DeliveryDto cannot be null");
@@ -52,6 +54,21 @@ public class DeliveryMapper {
 
             if(deliveryMan.getPersonType() == null || deliveryMan.getPersonType().getId() !=  2L ){
                 throw new RuntimeException("Person is not a delivery man " + deliveryDto.getDeliveryManId());
+            }
+
+            if (deliveryDto.getStartTime() != null && deliveryDto.getEndTime() != null ) {
+                List<Delivery> overlappingDeliveries = deliveryRepository
+                        .findOverlappingDeliveriesForDeliveryMan(
+                                deliveryDto.getDeliveryManId(),
+                                deliveryDto.getStartTime(),
+                                deliveryDto.getEndTime()
+                        );
+
+                if (!overlappingDeliveries.isEmpty()) {
+                    throw new RuntimeException("Delivery man with ID " + deliveryDto.getDeliveryManId() +
+                            " is already assigned to another delivery during this time period. Conflicting delivery IDs: " +
+                            overlappingDeliveries.stream().map(d -> d.getId().toString()).collect(Collectors.joining(", ")));
+                }
             }
             delivery.setDeliveryMan(deliveryMan);
         }

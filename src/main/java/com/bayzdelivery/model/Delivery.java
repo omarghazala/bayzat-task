@@ -29,13 +29,13 @@ public class Delivery implements Serializable{
   @NotNull
   @Column(name = "end_time")
   Instant endTime;
-
+  @NotNull
   @Column(name = "distance")
   Long distance;
-
+  @NotNull
   @Column(name = "price")
   Long price;
-
+  @NotNull
   @Column(name = "comission")
   Double comission;
 

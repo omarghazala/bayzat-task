@@ -20,7 +20,7 @@ public class DeliveryServiceImpl implements DeliveryService {
   PersonRepository personRepository;
 
   public Delivery save(DeliveryDto deliveryDto) {
-    return deliveryRepository.save(DeliveryMapper.mapDeliveryDtoToDelivery(deliveryDto,personRepository));
+    return deliveryRepository.save(DeliveryMapper.mapDeliveryDtoToDelivery(deliveryDto,deliveryRepository ,personRepository));
   }
 
   public Delivery findById(Long deliveryId) {

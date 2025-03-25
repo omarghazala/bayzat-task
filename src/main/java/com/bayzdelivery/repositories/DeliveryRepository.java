@@ -22,4 +22,18 @@ public interface DeliveryRepository extends CrudRepository<Delivery, Long> {
             @Param("startTime") Instant startTime,
             @Param("endTime") Instant endTime
     );
+
+    @Query(value =
+            "SELECT d.delivery_man_id as id, p.name, p.email, SUM(d.comission) as total_commission, AVG(d.comission) as average_commission " +
+                    "FROM delivery d " +
+                    "JOIN person p ON d.delivery_man_id = p.id " +
+                    "WHERE d.start_time >= :startTime AND d.start_time <= :endTime " +
+                    "GROUP BY d.delivery_man_id, p.name, p.email " +
+                    "ORDER BY total_commission DESC " +
+                    "LIMIT 3",
+            nativeQuery = true)
+    List<Object[]> findTopDeliveryMenByCommission(
+            @Param("startTime") Instant startTime,
+            @Param("endTime") Instant endTime
+    );
 }

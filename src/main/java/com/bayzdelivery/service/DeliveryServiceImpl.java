@@ -1,8 +1,12 @@
 package com.bayzdelivery.service;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.bayzdelivery.dto.DeliveryDto;
+import com.bayzdelivery.dto.TopDeliveryMenDto;
 import com.bayzdelivery.mapper.DeliveryMapper;
 import com.bayzdelivery.repositories.DeliveryRepository;
 import com.bayzdelivery.model.Delivery;
@@ -28,5 +32,11 @@ public class DeliveryServiceImpl implements DeliveryService {
     if (optionalDelivery.isPresent()) {
       return optionalDelivery.get();
     }else return null;
+  }
+
+  @Override
+  public List<TopDeliveryMenDto> getTopDeliveryMenByCommission(Instant startTime, Instant endTime) {
+    List<Object[]> results = deliveryRepository.findTopDeliveryMenByCommission(startTime, endTime);
+    return DeliveryMapper.mapObjectsToTopDeliveryMenDtoList(results);
   }
 }

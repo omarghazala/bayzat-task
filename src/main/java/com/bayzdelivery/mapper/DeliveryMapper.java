@@ -1,6 +1,7 @@
 package com.bayzdelivery.mapper;
 
 import com.bayzdelivery.dto.DeliveryDto;
+import com.bayzdelivery.dto.TopDeliveryMenDto;
 import com.bayzdelivery.model.Delivery;
 import com.bayzdelivery.model.Person;
 import com.bayzdelivery.repositories.DeliveryRepository;
@@ -8,9 +9,24 @@ import com.bayzdelivery.repositories.PersonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DeliveryMapper {
+
+    public static List<TopDeliveryMenDto> mapObjectsToTopDeliveryMenDtoList(List<Object[]> results){
+        List<TopDeliveryMenDto> topDeliveryMen =  new ArrayList<>();
+        for (Object[] result : results) {
+            Long id = ((Number) result[0]).longValue();
+            String name = (String) result[1];
+            String email = (String) result[2];
+            Double totalCommission = (Double) result[3];
+            Double averageCommission =  (Double)  result[4];
+
+            topDeliveryMen.add(new TopDeliveryMenDto(id, name, email, totalCommission, averageCommission));
+        }
+        return topDeliveryMen;
+    }
     public static Delivery mapDeliveryDtoToDelivery(DeliveryDto deliveryDto, DeliveryRepository deliveryRepository, PersonRepository personRepository) {
 
         if (deliveryDto == null) {

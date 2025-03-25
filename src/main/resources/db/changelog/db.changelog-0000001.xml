@@ -19,6 +19,7 @@
             <column name="end_time" type="TIMESTAMP"/>
             <column name="distance" type="BIGINT"/>
             <column name="price" type="BIGINT"/>
+            <column name="comission" type="DECIMAL(10, 2)"/>
         </createTable>
          <addForeignKeyConstraint baseColumnNames="delivery_man_id"
             baseTableName="delivery"
@@ -34,5 +35,38 @@
             onUpdate="RESTRICT"
             referencedColumnNames="id"
             referencedTableName="person"/>
+    </changeSet>
+    <changeSet author="bayzdelivery" id="20250325001_add_person_type_table">
+        <createTable tableName="person_type">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_person_type"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="bayzdelivery" id="20250325002_add_person_type_fk">
+        <addColumn tableName="person">
+            <column name="person_type_id" type="BIGINT">
+                <constraints nullable="true" foreignKeyName="fk_person_type"
+                             referencedTableName="person_type" referencedColumnNames="id"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="bayzdelivery" id="20250325003_add_unique_constraints">
+        <addUniqueConstraint tableName="person" columnNames="email" constraintName="uk_person_email"/>
+        <addUniqueConstraint tableName="person" columnNames="registration_number" constraintName="uk_person_registration_number"/>
+    </changeSet>
+
+    <changeSet author="bayzdelivery" id="20250325005_insert_person_types">
+        <insert tableName="person_type">
+            <column name="name" value="CUSTOMER"/>
+        </insert>
+        <insert tableName="person_type">
+            <column name="name" value="DELIVERY_MAN"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

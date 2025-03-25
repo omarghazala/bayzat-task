@@ -9,7 +9,6 @@ import java.time.Instant;
 public class DeliveryDto {
     Instant startTime;
 
-
     Instant endTime;
 
     Long distance;

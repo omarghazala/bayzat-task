@@ -1,5 +1,6 @@
 package com.bayzdelivery.controller;
 
+import com.bayzdelivery.dto.DeliveryDto;
 import com.bayzdelivery.model.Delivery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class DeliveryController {
   DeliveryService deliveryService;
 
   @PostMapping(path ="/delivery")
-  public ResponseEntity<Delivery> createNewDelivery(@RequestBody Delivery delivery) {
+  public ResponseEntity<Delivery> createNewDelivery(@RequestBody DeliveryDto delivery) {
     return ResponseEntity.ok(deliveryService.save(delivery));
   }
 

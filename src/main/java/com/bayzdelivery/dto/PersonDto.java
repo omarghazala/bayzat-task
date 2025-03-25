@@ -8,6 +8,9 @@ public class PersonDto {
     String name;
     String email;
 
+    Long personTypeId;
+
+
     public String getName() {
         return name;
     }
@@ -24,4 +27,11 @@ public class PersonDto {
         this.email = email;
     }
 
+    public Long getPersonTypeId() {
+        return personTypeId;
+    }
+
+    public void setPersonTypeId(Long personTypeId) {
+        this.personTypeId = personTypeId;
+    }
 }

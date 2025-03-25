@@ -2,6 +2,7 @@ package com.bayzdelivery.mapper;
 
 import com.bayzdelivery.dto.DeliveryDto;
 import com.bayzdelivery.model.Delivery;
+import com.bayzdelivery.model.Person;
 import com.bayzdelivery.repositories.PersonRepository;
 
 import java.util.ArrayList;
@@ -23,19 +24,39 @@ public class DeliveryMapper {
         delivery.setEndTime(deliveryDto.getEndTime());
         delivery.setStartTime(deliveryDto.getStartTime());
 
-        if (deliveryDto.getDeliveryManId() != null) {
-            if (!personRepository.existsById(deliveryDto.getDeliveryManId())) {
-                throw new RuntimeException("Person doesn't exist: " + deliveryDto.getDeliveryManId());
+        if(deliveryDto.getDeliveryManId() != null && deliveryDto.getCustomerId() != null){
+            if(deliveryDto.getDeliveryManId().equals(deliveryDto.getCustomerId())){
+                throw new RuntimeException("The same person can't do both jobs " + deliveryDto.getDeliveryManId());
             }
-            delivery.setDeliveryMan(personRepository.findById(deliveryDto.getDeliveryManId()).get());
         }
 
         if (deliveryDto.getCustomerId() != null) {
             if (!personRepository.existsById(deliveryDto.getCustomerId())) {
-                throw new RuntimeException("Person doesn't exist: " + deliveryDto.getDeliveryManId());
+                throw new RuntimeException("Person doesn't exist: " + deliveryDto.getCustomerId());
             }
+
+            Person customer = personRepository.findById(deliveryDto.getCustomerId()).get();
+
+            if(customer.getPersonType() == null || customer.getPersonType().getId() !=  1L ){
+                throw new RuntimeException("Person is not a customer " + deliveryDto.getCustomerId());
+            }
+
             delivery.setCustomer(personRepository.findById(deliveryDto.getCustomerId()).get());
         }
+
+        if (deliveryDto.getDeliveryManId() != null) {
+            if (!personRepository.existsById(deliveryDto.getDeliveryManId())) {
+                throw new RuntimeException("Person doesn't exist: " + deliveryDto.getDeliveryManId());
+            }
+            Person deliveryMan = personRepository.findById(deliveryDto.getDeliveryManId()).get();
+
+            if(deliveryMan.getPersonType() == null || deliveryMan.getPersonType().getId() !=  2L ){
+                throw new RuntimeException("Person is not a delivery man " + deliveryDto.getDeliveryManId());
+            }
+            delivery.setDeliveryMan(deliveryMan);
+        }
+
+
         return delivery;
     }
 

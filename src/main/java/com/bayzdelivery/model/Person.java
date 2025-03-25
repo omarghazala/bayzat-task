@@ -1,12 +1,8 @@
 package com.bayzdelivery.model;
 
 import java.io.Serializable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
@@ -37,6 +33,10 @@ public class Person implements Serializable{
   @Column(name = "registration_number",unique = true)
   String registrationNumber;
 
+  @ManyToOne
+  @JoinColumn(name = "person_type_id")
+  PersonType personType;
+
   public Long getId() {
     return id;
   }
@@ -64,6 +64,14 @@ public class Person implements Serializable{
 
   public void setRegistrationNumber(String registrationNumber) {
     this.registrationNumber = registrationNumber;
+  }
+
+  public PersonType getPersonType() {
+    return personType;
+  }
+
+  public void setPersonType(PersonType personType) {
+    this.personType = personType;
   }
 
   @Override

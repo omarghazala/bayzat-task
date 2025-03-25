@@ -18,7 +18,7 @@ public class DeliveryMapper {
 
 
         Delivery delivery = new Delivery();
-        delivery.setComission(deliveryDto.getComission());
+        delivery.setComission((deliveryDto.getPrice()*0.05)+(deliveryDto.getDistance()*0.5));
         delivery.setDistance(deliveryDto.getDistance());
         delivery.setPrice(deliveryDto.getPrice());
         delivery.setEndTime(deliveryDto.getEndTime());
@@ -92,11 +92,6 @@ public class DeliveryMapper {
 
         if (deliveryDto.getDeliveryManId() == null) {
             errors.add("Delivery Man ID is required");
-        }
-
-        // Commission validation - can add business rules here
-        if (deliveryDto.getComission() != null && deliveryDto.getComission() < 0) {
-            errors.add("Commission cannot be negative");
         }
 
         return errors;

@@ -15,8 +15,6 @@ public class DeliveryDto {
 
     Long price;
 
-    Long comission;
-
     Long deliveryManId;
 
     Long customerId;
@@ -51,14 +49,6 @@ public class DeliveryDto {
 
     public void setPrice(Long price) {
         this.price = price;
-    }
-
-    public Long getComission() {
-        return comission;
-    }
-
-    public void setComission(Long comission) {
-        this.comission = comission;
     }
 
     public Long getDeliveryManId() {
